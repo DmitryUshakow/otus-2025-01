@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[branch "master"]
+	vscode-merge-base = origin/master
+[branch "lesson/unit-test"]
+	vscode-merge-base = origin/lesson/unit-test
+[remote "origin"]
+	url = https://github.com/DmitryUshakow/otus-js-2025.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "task/unit-test"]
+	vscode-merge-base = origin/master
