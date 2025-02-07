@@ -1,3 +1,57 @@
+//  Swagger Пользователь уже зарегистирован
+describe('authedUser', () => {
+  it('Success get token', async () => {
+    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userName: 'Dmitry.ushakov@mail.com',
+        password: 'Dmitry0!'
+      })
+    })
+    const data = await response.json()
+    expect(response.status).toEqual(406)
+    expect(data.code).toBe('1204')
+    expect(data.message).toBe('User exists!')
+  })
+})
+//  Swagger Пароль без специальных символов, так по аналогии могу размножить перебрав все комбинации не соответсвующего требованиям пароля)
+describe('badPassword', () => {
+  it('Success get token', async () => {
+    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userName: 'Dmitry.ushakov@mail.com',
+        password: 'Dmitry01'
+      })
+    })
+    const data = await response.json()
+    expect(response.status).toEqual(400)
+    expect(data.code).toBe('1300')
+    expect(data.message).toBe(
+      "Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer."
+    )
+  })
+})
+// Swagger Создание пользователя
+describe('badPassword', () => {
+  it('Success get token', async () => {
+    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userName: 'Dmitry.ushakov10@gmail.com',
+        password: 'Dmitry0!'
+      })
+    })
+    const data = await response.json()
+    expect(response.status).toEqual(201)
+    expect(data.userID).not.toBeNull()
+    expect(data.userID).toBeTruthy()
+    expect(data.username).toBe('Dmitry.ushakov10@gmail.com')
+  })
+})
 //Swagger Get Token
 describe('Auth', () => {
   let token
@@ -6,16 +60,18 @@ describe('Auth', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userName: 'string',
-        password: 'string'
+        userName: 'Dmitry.ushakov2@gmail.com',
+        password: 'Dmitry0!'
       })
     })
     const data = await response.json()
     expect(response.status).toEqual(200)
-    expect(data.expires).toBe(null)
-    expect(data.status).toBe('Failed')
-    expect(data.result).toBe('User authorization failed.')
-    expect(data.token).toBe(null)
+    expect(data.status).toBe('Success')
+    expect(data.expires).not.toBeNull()
+    expect(data.expires).toBeTruthy()
+    expect(data.result).toBe('User authorized successfully.')
+    expect(data.token).toBeTruthy()
+    expect(data.token).not.toBeNull()
     token = data.token
     console.log(token)
   })
@@ -36,7 +92,7 @@ describe('badToken', () => {
     expect(data.message).toBe('UserName and Password required.')
   })
 })
-// Далее я не совсем понял, как сделать тесты в swagger, которые успешно бы прошли и перешел на reqres))
+// Большое спасибо, после вашей подсказки понял, как сделать все тесты в swagger, но на память оставил тесты на reqres))
 const baseUrl = 'https://reqres.in/api'
 // Wrong Login - логин уже используется
 describe('useLogin', () => {
@@ -122,7 +178,7 @@ describe('createUser', () => {
     expect(data.createdAt).not.toBe(null)
   })
 })
-// Bonus from starWars)))
+// Bonus from starWars )))
 const baseUrlStarWars = 'https://reqres.in/api'
 describe('getPeople', () => {
   it('successCreate', async () => {
@@ -159,3 +215,24 @@ describe('getLuke', () => {
     // почему то тоже, но я пытался
   })
 })
+//npm test -- api.spec.js
+
+// function createUniqueRandomGenerator(min, max) {
+//   const used = new Set();
+//   return () => {
+//     if (used.size === max - min + 1) {
+//       throw new Error('All numbers in range are used');
+//     }
+
+//     let num;
+//     do {
+//       num = Math.floor(Math.random() * (max - min + 1)) + min;
+//     } while (used.has(num));
+
+//     used.add(num);
+//     return num;
+//   };
+// }
+
+// // Использование
+// const getUniqueRandom = createUniqueRandomGenerator(10, 100);
