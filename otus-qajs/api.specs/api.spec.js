@@ -1,7 +1,7 @@
 const baseUrlBook = 'https://bookstore.demoqa.com/Account/v1'
 //  Swagger Пользователь уже зарегистирован
 describe('authedUser', () => {
-  it('Success get token', async () => {
+  it('authedUser', async () => {
     const response = await fetch(`${baseUrlBook}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -18,12 +18,12 @@ describe('authedUser', () => {
 })
 //  Swagger Пароль без специальных символов, так по аналогии могу размножить перебрав все комбинации не соответсвующего требованиям пароля)
 describe('badPassword', () => {
-  it('Success get token', async () => {
+  it('badPassword', async () => {
     const response = await fetch(`${baseUrlBook}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userName: 'Dmitry.ushakov@mail.com',
+        userName: 'Dmitry.ushakov@gmail.com',
         password: 'Dmitry01'
       })
     })
@@ -37,7 +37,7 @@ describe('badPassword', () => {
 })
 // Swagger Создание пользователя
 describe('badPassword', () => {
-  it('Success get token', async () => {
+  it('badPassword', async () => {
     const response = await fetch(`${baseUrlBook}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -79,7 +79,7 @@ describe('Auth', () => {
 })
 //Swagger Get badToken
 describe('badToken', () => {
-  it('Success get token', async () => {
+  it('badToken', async () => {
     const response = await fetch(`${baseUrlBook}/GenerateToken`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
