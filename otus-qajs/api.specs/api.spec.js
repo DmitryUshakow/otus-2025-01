@@ -1,7 +1,8 @@
+const baseUrlBook = 'https://bookstore.demoqa.com/Account/v1'
 //  Swagger Пользователь уже зарегистирован
 describe('authedUser', () => {
   it('Success get token', async () => {
-    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+    const response = await fetch(`${baseUrlBook}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -18,7 +19,7 @@ describe('authedUser', () => {
 //  Swagger Пароль без специальных символов, так по аналогии могу размножить перебрав все комбинации не соответсвующего требованиям пароля)
 describe('badPassword', () => {
   it('Success get token', async () => {
-    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+    const response = await fetch(`${baseUrlBook}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -37,7 +38,7 @@ describe('badPassword', () => {
 // Swagger Создание пользователя
 describe('badPassword', () => {
   it('Success get token', async () => {
-    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+    const response = await fetch(`${baseUrlBook}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -56,11 +57,11 @@ describe('badPassword', () => {
 describe('Auth', () => {
   let token
   it('Success get token', async () => {
-    const response = await fetch('https://bookstore.demoqa.com/Account/v1/GenerateToken', {
+    const response = await fetch(`${baseUrlBook}/GenerateToken`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userName: 'Dmitry.ushakov2@gmail.com',
+        userName: 'Dmitry.ushakov@gmail.com',
         password: 'Dmitry0!'
       })
     })
@@ -79,7 +80,7 @@ describe('Auth', () => {
 //Swagger Get badToken
 describe('badToken', () => {
   it('Success get token', async () => {
-    const response = await fetch('https://bookstore.demoqa.com/Account/v1/GenerateToken', {
+    const response = await fetch(`${baseUrlBook}/GenerateToken`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
