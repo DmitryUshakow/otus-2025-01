@@ -1,0 +1,11 @@
+node_modules
+coverage
+reports
+build
+.idea
+.env
+backup
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
